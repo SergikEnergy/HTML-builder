@@ -51,13 +51,16 @@ fs.copyFile(pathToTemplateHtml, indexHtmlPath, (err) => {
   }
 });
 //read components
-let componentsList = [];
-fs.readdir(componentsDir, (err, files) => {
+
+const getComponents = async ()=>{
+  try {
+    await let componentsList = [];
+    fs.readdir(componentsDir, (err, files) => {
   if (err) {
     console.error("Error with reading current folder.", err.message());
   }
   files.forEach((file) => {
-    const pathToFileComponent = path.join(componentsDir, file);
+    await const pathToFileComponent = path.join(componentsDir, file);
     fs.stat(pathToFileComponent, (err, item) => {
       if (err) console.error("Oops! Error!", err.message);
       if (item.isFile() && path.extname(pathToFileComponent) === ".html") {
@@ -66,6 +69,8 @@ fs.readdir(componentsDir, (err, files) => {
     });
   });
 });
+} catch (error) {console.log(error);}
+}
 console.log(componentsList);
 
 //bundle styles.css

@@ -19,6 +19,7 @@ stdin.on("data", (chunk) => {
     console.error("You didn't type anything, repeat typing, please");
   }
 });
+process.on("SIGINT", () => process.exit());
 process.on("exit", () => {
-  stdout.write("Thanks. Input was stopped.\n");
+  stdout.write("Thanks. Bye. Input was stopped.\n");
 });

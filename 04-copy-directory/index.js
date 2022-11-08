@@ -9,6 +9,19 @@ fs.mkdir(outputDirectory, { recursive: true }, (error) => {
     console.error("Oops! Error!", error.message);
   } else console.log(`Congratulations! You created directory "${path.basename(outputDirectory)}".`);
 });
+//remove the files to copy newly
+fs.readdir(outputDirectory, (err, files) => {
+  if (err) {
+    console.error("Error with reading output folder.", err.message());
+  }
+  files.forEach((file) => {
+    const pathToOutputFile = path.join(outputDirectory, file);
+    fs.unlink(pathToOutputFile, (err) => {
+      if (err) console.error("error with delete existing files", err.message);
+    });
+  });
+});
+
 fs.readdir(currentDirectory, (err, files) => {
   if (err) {
     console.error("Error with reading current folder.", err.message());
